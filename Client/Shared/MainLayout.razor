@@ -1,6 +1,6 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider />
+<MudThemeProvider @ref="@_provider" IsDarkMode="_dark" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
@@ -8,6 +8,8 @@
     <MudAppBar Elevation="0">
         <MudText Typo="Typo.h6">Fictionary</MudText>
         <MudSpacer/>
+        <MudToggleIconButton @bind-Toggled="@_dark" Icon="@Icons.TwoTone.DarkMode" Color="@Color.Inherit" Title="Dark Mode"
+                             ToggledIcon="@Icons.TwoTone.LightMode" ToggledColor="@Color.Warning" ToggledTitle="Light Mode"/>
         <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/sixpeteunder/fictionary" Target="_blank"/>
         <MudIconButton Icon="@Icons.TwoTone.Info" Color="Color.Inherit" OnClick="@(() => _drawer = true)"/>
     </MudAppBar>
@@ -47,5 +49,17 @@
 </MudLayout>
 
 @code {
-    bool _drawer;
+    private bool _dark; 
+    private bool _drawer;
+    private MudThemeProvider _provider;
+    
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _dark = await _provider.GetSystemPreference();
+            StateHasChanged();
+        }
+    }
 }

@@ -1,7 +1,30 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Fictionary</PageTitle>
 
-<MudText Typo="Typo.h3" GutterBottom="true">Hello, world!</MudText>
-<MudText Class="mb-8">Welcome to your new app, powered by MudBlazor!</MudText>
-<MudAlert Severity="Severity.Normal">You can find documentation and examples on our website here: <MudLink Href="https://mudblazor.com" Typo="Typo.body2" Color="Color.Inherit"><b>www.mudblazor.com</b></MudLink></MudAlert>
+<MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">Fictionary</MudText>
+<MudText Class="mb-8" Align="Align.Center">Fact and nonsense in equal proportion.</MudText>
+
+<MudPaper Class="pa-4 mb-4">
+    <MudTextField @bind-Value="_query" Immediate="true" AdornmentIcon="@Icons.TwoTone.Search" Variant="Variant.Filled" Label="Search Query" Clearable></MudTextField>
+</MudPaper>
+
+<MudPaper Class="pa-4">
+    @if (_query.Length > 0)
+    {
+        <MudText Typo="Typo.h4">@_query</MudText>    
+    }
+    else
+    {
+        <MudSkeleton SkeletonType="SkeletonType.Text" Height="2.125rem" Width="30%" />
+    }
+    <MudSkeleton Class="mb-3" Width="10%"/>
+    
+    <MudSkeleton/>
+    <MudSkeleton/>
+    <MudSkeleton/>
+</MudPaper>
+
+@code {
+    private string _query = string.Empty;
+}

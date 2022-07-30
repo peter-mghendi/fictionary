@@ -1,30 +1,56 @@
 ﻿@page "/"
 
+@inject ILogger<Index> Logger
+
 <PageTitle>Fictionary</PageTitle>
 
 <MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">Fictionary</MudText>
-<MudText Class="mb-8" Align="Align.Center">Fact and nonsense in equal proportion.</MudText>
+<MudText Typo="Typo.subtitle1" Class="mb-8" Align="Align.Center">Fact and nonsense in equal proportion.</MudText>
 
 <MudPaper Class="pa-4 mb-4">
-    <MudTextField @bind-Value="_query" Immediate="true" AdornmentIcon="@Icons.TwoTone.Search" Variant="Variant.Filled" Label="Search Query" Clearable></MudTextField>
+    <MudTextField @bind-Value="_query" DebounceInterval="350" OnDebounceIntervalElapsed="PerformLookup" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.Search" Variant="Variant.Filled" Label="Search Query" Clearable></MudTextField>
 </MudPaper>
 
-<MudPaper Class="pa-4">
-    @if (_query.Length > 0)
-    {
-        <MudText Typo="Typo.h4">@_query</MudText>    
-    }
-    else
-    {
-        <MudSkeleton SkeletonType="SkeletonType.Text" Height="2.125rem" Width="30%" />
-    }
-    <MudSkeleton Class="mb-3" Width="10%"/>
-    
-    <MudSkeleton/>
-    <MudSkeleton/>
-    <MudSkeleton/>
-</MudPaper>
+@if (_query is { Length: > 0 })
+{
+    <MudPaper Class="pa-4">
+        <MudText Typo="Typo.h4">@_query</MudText>
+
+        @if (_result is null)
+        {
+            <MudSkeleton Class="mb-3" Width="10%"/>
+
+            <MudSkeleton/>
+            <MudSkeleton/>
+            <MudSkeleton/>
+        }
+        else
+        {
+            <MudText Typo="Typo.caption" Class="mb-3">@_result.PartOfSpeech</MudText>
+            <MudText Typo="Typo.body1">@_result.Definition</MudText>
+        }
+    </MudPaper>
+}
 
 @code {
     private string _query = string.Empty;
+    private SearchResult? _result;
+    private readonly Random _random = new();
+
+    private async Task PerformLookup(string query)
+    {
+        _result = null;
+
+        if (query is {Length: > 0})
+        {
+            await Task.Delay(TimeSpan.FromSeconds(3));
+            var fact = _random.Next(0, 2) == 0;
+            
+            Logger.LogInformation("Performing lookup for {Query}; Fact: {Fact}", query, fact);
+
+            _result = new SearchResult("noun", $"A {(fact ? "factual" : "nonsense")} definition for this word goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+        }
+    }
+
+    public record class SearchResult(string PartOfSpeech, string Definition);
 }

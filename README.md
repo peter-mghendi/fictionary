@@ -3,6 +3,9 @@ A dictionary that sometimes tells the truth.
 
 Fictionary is an offline-first Progressive Web App that leverages ASP.NET Core, Blazor and Webassembly to bring you word definitions that are only sometimes true.
 
+> :star: 10/10! World class tool for working on your fiction!\
+> — <cite>Dude trust me<cite>
+
 Fictionary is brought to you in stunning Material Design with an included dark theme.
 
 > **Warning**

@@ -9,6 +9,8 @@ Project("{AAC64FFF-818C-4D33-9A63-0DB83C587C04}") = "Fictionary.Client", "Client
 EndProject
 Project("{AAC64FFF-818C-4D33-9A63-0DB83C587C04}") = "Fictionary.Shared", "Shared\Fictionary.Shared.csproj", "{3F3BC838-8514-4F78-B01E-0F6CDCC262CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fictionary.FreeDictionary", "Fictionary.FreeDictionary\Fictionary.FreeDictionary.csproj", "{EAD26A60-6FD2-4B7E-99F9-0C92C09E6856}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{3F3BC838-8514-4F78-B01E-0F6CDCC262CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F3BC838-8514-4F78-B01E-0F6CDCC262CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F3BC838-8514-4F78-B01E-0F6CDCC262CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAD26A60-6FD2-4B7E-99F9-0C92C09E6856}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAD26A60-6FD2-4B7E-99F9-0C92C09E6856}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAD26A60-6FD2-4B7E-99F9-0C92C09E6856}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAD26A60-6FD2-4B7E-99F9-0C92C09E6856}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

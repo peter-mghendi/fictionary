@@ -1,4 +1,5 @@
 using Fictionary.FreeDictionary.Models;
+using Flurl;
 using Flurl.Http;
 
 namespace Fictionary.FreeDictionary.Services;
@@ -9,5 +10,7 @@ public class EntriesService
 
     private string BaseUrl { get; }
     
-    public async Task<List<Entry>> GetAsync(string word) => await $"{BaseUrl}/{word}".GetJsonAsync<List<Entry>>();
+    public async Task<List<Entry>> GetAsync(string word) => await BaseUrl
+        .AppendPathSegment(word)
+        .GetJsonAsync<List<Entry>>();
 }
